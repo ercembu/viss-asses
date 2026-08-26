@@ -63,11 +63,9 @@ inline void ReportFail(const char* file, int line, const char* expr)
 
 #define EXPECT_EQ(a, b) do { VISS_BUMP_ASSERT();                             \
     auto _va = (a); auto _vb = (b);                                          \
-    if (!(_va == _vb)) {                                                     \
-        char buf[256];                                                       \
-        snprintf(buf, sizeof(buf), "EXPECT_EQ(" #a ", " #b ")");             \
-        ::viss_test::ReportFail(__FILE__, __LINE__, buf);                    \
-    } } while (0)
+    if (!(_va == _vb)) ::viss_test::ReportFail(__FILE__, __LINE__,           \
+                                                "EXPECT_EQ(" #a ", " #b ")"); \
+    } while (0)
 
 #define EXPECT_NE(a, b) do { VISS_BUMP_ASSERT();                             \
     auto _va = (a); auto _vb = (b);                                          \
