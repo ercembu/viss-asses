@@ -1,0 +1,19 @@
+{
+  "format": 1,
+  "signers": [
+    {
+      "name": "viss-maint-signer",
+      "purposes": [
+        "maintenance"
+      ],
+      "public_key": "-----BEGIN PUBLIC KEY-----\nMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEl1gctQdKS7+DowwAZQmMLOJewxfU\n0w4d+g+sA+OCM1HGDGiPJrlFy8tm0GP8CcndkB1J4Jp2n2o4DYlLBy6cVA==\n-----END PUBLIC KEY-----\n"
+    },
+    {
+      "name": "viss-catalog-signer",
+      "purposes": [
+        "catalog"
+      ],
+      "public_key": "-----BEGIN PUBLIC KEY-----\nMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEYspUihIIHs4+FTiU/Lr9+lpSTuKN\n34KmHhGyoaJMu6/ElJmxLpbt+Kb6AHrUziQghX5zOUxvzrLRPBJRDpGblg==\n-----END PUBLIC KEY-----\n"
+    }
+  ]
+}

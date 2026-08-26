@@ -1,0 +1,45 @@
+{
+  "bundles": [
+    {
+      "file": "viss-calculator-1.2.0.vissapp",
+      "hash_offset": 62099,
+      "data_blocks": 15,
+      "sqfs_size": 62099,
+      "root_hash": "03a3200a0a6341fe88724202c45c713c8fe88e1673cdf8dd27b9cf58612029f1",
+      "note": "unpadded producer: hash_offset is not a multiple of 4096"
+    },
+    {
+      "file": "viss-notes-0.9.1.vissapp",
+      "hash_offset": 94208,
+      "data_blocks": 23,
+      "sqfs_size": 94208,
+      "root_hash": "0c78a29a90f9ebff950a905d45206d0fcf3c552e56397f6b0fe80cf5868c756a",
+      "note": "padded producer: hash_offset == data_blocks * 4096"
+    },
+    {
+      "file": "viss-tiny-1.0.0.vissapp",
+      "hash_offset": 4096,
+      "data_blocks": 1,
+      "sqfs_size": 4096,
+      "root_hash": "41e6de3b83b99f7f2dd5bd17a8eda91da638937d4f857da091f94f789c8b5891",
+      "note": "exactly one data block, so the tree has no hash blocks at all"
+    },
+    {
+      "file": "viss-atlas-2.0.0.vissapp",
+      "hash_offset": 761856,
+      "data_blocks": 186,
+      "sqfs_size": 761856,
+      "root_hash": "e527f92ee128c23f08b59b346067ad00a0144e561c10e5b620eada3d070d85ff",
+      "note": "186 data blocks, so the tree has two levels"
+    },
+    {
+      "file": "corrupted.vissapp",
+      "hash_offset": 62099,
+      "data_blocks": 15,
+      "sqfs_size": 62099,
+      "root_hash": "03a3200a0a6341fe88724202c45c713c8fe88e1673cdf8dd27b9cf58612029f1",
+      "note": "one byte flipped after signing; the root hash must NOT match",
+      "expect_mismatch": true
+    }
+  ]
+}

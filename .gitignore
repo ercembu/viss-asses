@@ -1,0 +1,11 @@
+# Never commit the interviewer side. It holds every private key, the
+# reference solution, the hidden tests, the rubric and the model answers.
+interviewer/
+
+# Tooling / editor state.
+.serena/
+.claude/
+compile_commands.json
+
+# Build output (candidate/.gitignore covers the rest).
+build/

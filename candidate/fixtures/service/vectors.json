@@ -1,0 +1,93 @@
+{
+  "secret_hex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+  "cases": [
+    {
+      "name": "valid",
+      "device_id": "CM5-0001-A7F3",
+      "nonce": "9f2c4a71",
+      "purpose": "service",
+      "expect_valid": true,
+      "response": "587b1fe20f50dfca45b499305869e2523267690d26aaac6d3f4ff6a03f78e59d"
+    },
+    {
+      "name": "valid-other-device",
+      "device_id": "CM5-0002-B004",
+      "nonce": "11223344",
+      "purpose": "service",
+      "expect_valid": true,
+      "response": "261141533b3f48b9a1bae26a903800b38d9d440b9be731f87b645760acfede2b"
+    },
+    {
+      "name": "wrong-nonce",
+      "device_id": "CM5-0001-A7F3",
+      "nonce": "deadbeef",
+      "purpose": "service",
+      "expect_valid": false,
+      "response": "587b1fe20f50dfca45b499305869e2523267690d26aaac6d3f4ff6a03f78e59d"
+    },
+    {
+      "name": "wrong-device",
+      "device_id": "CM5-0002-B004",
+      "nonce": "9f2c4a71",
+      "purpose": "service",
+      "expect_valid": false,
+      "response": "587b1fe20f50dfca45b499305869e2523267690d26aaac6d3f4ff6a03f78e59d"
+    },
+    {
+      "name": "wrong-purpose",
+      "device_id": "CM5-0001-A7F3",
+      "nonce": "9f2c4a71",
+      "purpose": "factory-reset",
+      "expect_valid": false,
+      "response": "587b1fe20f50dfca45b499305869e2523267690d26aaac6d3f4ff6a03f78e59d"
+    },
+    {
+      "name": "empty-response",
+      "device_id": "CM5-0001-A7F3",
+      "nonce": "9f2c4a71",
+      "purpose": "service",
+      "expect_valid": false,
+      "response": ""
+    },
+    {
+      "name": "truncated-response",
+      "device_id": "CM5-0001-A7F3",
+      "nonce": "9f2c4a71",
+      "purpose": "service",
+      "expect_valid": false,
+      "response": "587b1fe20f50dfca45b499305869e252"
+    },
+    {
+      "name": "uppercase-response",
+      "device_id": "CM5-0001-A7F3",
+      "nonce": "9f2c4a71",
+      "purpose": "service",
+      "expect_valid": false,
+      "response": "587B1FE20F50DFCA45B499305869E2523267690D26AAAC6D3F4FF6A03F78E59D"
+    },
+    {
+      "name": "not-hex",
+      "device_id": "CM5-0001-A7F3",
+      "nonce": "9f2c4a71",
+      "purpose": "service",
+      "expect_valid": false,
+      "response": "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz"
+    },
+    {
+      "name": "split-baseline",
+      "device_id": "AB",
+      "nonce": "CD",
+      "purpose": "service",
+      "expect_valid": true,
+      "response": "9c7b2013fa52695451eaf6843092032d31ed7c30774f4c8ee92c0ceda3baf012"
+    },
+    {
+      "name": "split-attack",
+      "device_id": "ABC",
+      "nonce": "D",
+      "purpose": "service",
+      "expect_valid": false,
+      "response": "9c7b2013fa52695451eaf6843092032d31ed7c30774f4c8ee92c0ceda3baf012"
+    }
+  ]
+}

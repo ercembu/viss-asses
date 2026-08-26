@@ -1,0 +1,4 @@
+build/
+.scratch/
+.fixture-work/
+compile_commands.json
