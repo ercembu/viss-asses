@@ -1,6 +1,6 @@
-# VISS OS — embedded assessment
+# VISS OS — software assessment
 
-Second-stage exercise for the VISS OS embedded team: a self-contained C++17
+Second-stage exercise for the VISS OS software team: a self-contained C++17
 implementation task on the device-side cryptography of the VISS OS tree —
 hashing, signature verification and authorisation.
 

@@ -1,6 +1,6 @@
 # vissapp — device-side cryptography
 
-An implementation exercise for the VISS OS embedded team.
+An implementation exercise for the VISS OS software team.
 
 VISS OS is a Yocto Linux distribution for the Raspberry Pi Compute Module 5.
 It refuses to act on anything it cannot authenticate: application bundles are
