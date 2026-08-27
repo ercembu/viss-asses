@@ -1,56 +1,73 @@
 # NOTES
 
-Replace this skeleton with your own. One page is plenty; bullet points are
-fine. We are reading for how you think, not for prose.
-
----
-
 ## Status
 
-What is finished, what is partial, what you did not start. Be specific and be
-honest — an accurate "Part 3 parses but does not enforce the window" is worth
-more than a vague "mostly done".
+All three implementation parts are complete, along with additional negative
+and security tests.
 
 | Part | State | Notes |
 |---|---|---|
-| 1 — `hashtree.cpp` | | |
-| 2 — `ecdsa.cpp` | | |
-| 3 — `token.cpp` | | |
-| Tests | | |
+| 1 — `hashtree.cpp` | Complete | Implemented dm-verity parsing and SHA-256 hash-tree recomputation, including salt, padding, and the single-block case. |
+| 2 — `ecdsa.cpp` | Complete | Implemented strict DER parsing and ECDSA P-256 verification using BIGNUM/EC_POINT. |
+| 3 — `token.cpp` | Complete | Implemented token parsing, signer/purpose checks, time/device policy, and HMAC service-response verification. |
+| Tests | Complete | Added negative/security tests for malformed signatures, invalid keys, tokens, and service responses. 22 tests passed, 181 assertions. |
 
 ## What I would do next
 
-If you ran out of time, say what the next hour would have gone on and why that
-first. This reads far better than silence.
+The implementation and additional tests are complete.
+
+With more time, I would add a few more boundary tests and run the code with
+AddressSanitizer and UndefinedBehaviorSanitizer.
 
 ## Spec ambiguities, errors and dangers
 
-Anything in `SPEC.md` you found ambiguous, wrong or dangerous, and what you
-did about it. Where you had to decide something the spec did not settle, say
-what you decided and why. Disagreeing with us is fine and scores as well as
-agreeing, provided the argument is clear.
+- Only the data blocks specified by the superblock are covered by the hash
+  tree. Bytes after the final block are not covered.
+- Hash-tree levels are zero-padded to 4096 bytes before hashing.
+- The tree stops when one digest remains, which is important for a
+  single-block bundle.
+- DER signatures must be minimally encoded. Negative integers, unnecessary
+  leading zeroes, bad lengths, trailing bytes, and invalid scalar values are
+  rejected.
+- I did not reject high-s signatures because `(r, n-s)` is also valid ECDSA,
+  and the specification requires `s-malleable.der` to verify.
+- Token bytes are authenticated before being parsed, as required by section
+  5.3.
+- A trusted key must also be authorised for the requested purpose.
+- `device=*` is rejected because it would allow the same token to work on
+  every device.
+- Service-response fields use NUL separators, and the response comparison is
+  done without an early exit.
+- The remaining limitations are replay within the token validity period, no
+  key revocation, and maintenance keys being trusted by every device using
+  the same keyring.
 
 ## Question 1 — signature malleability
 
-`fixtures/sigs/s-malleable.der` is a second valid signature over the same
-message, produced without the private key. Our app catalog identifies each
-bundle by `bundle_sig_hash` — the SHA-256 of its `.sig` file. What goes wrong,
-and what would you use as the identifier instead?
+`r,s` and `r,n-s` are both valid ECDSA signatures for the same message. This
+means the same bundle can have different `.sig` hashes even though the bundle
+itself has not changed.
 
-> your answer
+I would use a hash of the bundle contents as the bundle identifier, and use
+the signature only to prove that the contents were approved by a trusted key.
 
 ## Question 2 — the tokens already in the field
 
-The token format is taken from a script we actually ship, which emits
-`device=*` and no `expires` field at all. Section 5.3 rejects both. A fleet of
-units is already running with those tokens in circulation. What is the
-exploit, and how would you roll out the fix without bricking the technicians'
-access?
+`device=*` means a stolen token could be used on any device using the same
+keyring. Without `expires`, an old token could also remain valid indefinitely
+under the old implementation.
 
-> your answer
+I would first roll out support for the new format and update the issuing
+system to create device-specific tokens with expiry times. During a short
+migration period, old tokens could be accepted through a limited compatibility
+path. Once technicians have moved to the new tokens, remove that old path.
 
 ## Anything else
 
-Tools you used, including AI ones, and what you used them for. This costs you
-nothing — we use them too — and you will be asked to walk through and modify
-this code live, so it is worth being straight about it here.
+I used AI assistance to help understand the specification and review the
+implementation. I verified the result by building the project and running the
+tests.
+
+## Final test result
+
+Tests: 22 total, 22 passed, 0 failed (181 assertions)
