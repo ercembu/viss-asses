@@ -54,7 +54,7 @@ Superblock ParseSuperblock(const uint8_t *raw, size_t len) {
   }
 
   // Read UUID, not required currently
-  const uint16_t _uuid = ReadLe16(raw + 16);
+  // const uint16_t _uuid = ReadLe16(raw + 16);
 
   // Read algorithm name, must be "sha256" null padded
   char algo[33] = {};

@@ -1,4 +1,3 @@
-
 // Custom tests to check hash values for all files.
 
 #include "test_support.h"
@@ -56,7 +55,7 @@ TEST(Hash, KnownBundleRootMatchesVissTiny) {
 }
 
 // Test corrupted.vissapp, SHOULD FAIL
-TEST(Hash, KnownBundleRootMatchesCorrupted) {
+TEST(Hash, KnownBundleRootCorrupted) {
   // Every bundle's expected root is in fixtures/bundles/manifest.json.
   JsonDoc doc = JsonDoc::ParseFile(Fixtures() / "bundles" / "manifest.json");
   const cJSON *list = cJSON_GetObjectItemCaseSensitive(doc.root(), "bundles");
@@ -72,5 +71,5 @@ TEST(Hash, KnownBundleRootMatchesCorrupted) {
 
   const std::string actual =
       ComputeRootHash(Fixtures() / "bundles" / file, offset);
-  EXPECT_STREQ(actual.c_str(), expected.c_str());
+  EXPECT_TRUE(actual != expected);
 }
