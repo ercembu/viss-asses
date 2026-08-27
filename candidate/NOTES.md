@@ -73,7 +73,7 @@ nothing — we use them too — and you will be asked to walk through and modify
 this code live, so it is worth being straight about it here.
 
 
-> I used OpenCode for writing boilerplate and helper functions when dealing with the tasks. 
+> I used OpenCode and CursorAI for writing boilerplate and helper functions when dealing with the tasks. 
 I also used OpenCode but in ask mode to ask for more information on how some parts could be 
 implemented (especially task 2 since I am not too familiar with ECDSA). Unit tests were written 
 by myself while using the examples provided in `test_public.cpp`.
