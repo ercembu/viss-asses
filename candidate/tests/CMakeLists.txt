@@ -7,6 +7,9 @@
 set(VISSAPP_TEST_SOURCES
     test_main.cpp
     test_public.cpp
+    test_hashtree.cpp
+    test_ecdsa.cpp
+    test_token.cpp
 )
 
 # The grading suite is dropped in beside these when a submission is scored.
